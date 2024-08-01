@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            height: 100vh;
+            margin: 30px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            font-size: 24px;
+            white-space: pre;
+        }
+
+        .letter {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="display: flex; justify-content:start; flex-direction: column;">
+        <div class="textbox" style="height: 50px;"><textarea type="text" id="maintext" ></textarea> <button id="submit"
+                onclick="printLetterByLetter()">submit</button></div>
+        <br>
+        <br>
+        <br>
+        <div class="container" id="text-container" style="height: 500px"></div>
+    </div>
+    <script>
+        // const text = '#include<stdio.h>\nint main(){\n\tint n;\n\tprintf("Enter n value: ");\n\tscanf("%d", &n);\n\tprintf("%d", n*n);\n}';
+
+
+        function printLetterByLetter() {
+            const text = document.getElementById('maintext').value;
+            console.log(text);
+            const container = document.getElementById('text-container');
+            let i = 0;
+            (function displayLetter() {
+                if (i < text.length) {
+                    const span = document.createElement('span');
+                    span.textContent = text[i];
+                    span.classList.add('letter');
+                    span.style.animationDelay = `${i * 0.1}s`;
+                    container.appendChild(span);
+                    i++;
+                    setTimeout(displayLetter, 100); // Delay between each letter
+                }
+            })();
+        }
+
+    </script>
+</body>
+
+</html>
